@@ -5,19 +5,19 @@ export default function Header() {
         <header>
             <nav  className="header_nav">
                 <ul>
-                    <li>
+                    <li className="nav_list_item">
                         <a href="/login" className="nav_link">Login</a>
                     </li>
-                    <li>
+                    <li className="nav_list_item">
                         <a href="/register" className="nav_link">Register</a>
                     </li>
-                    <li>
-                        <a href="/home" className="nav_link">Home</a>
+                    <li className="nav_list_item">
+                        <a href="/" className="nav_link">Home</a>
                     </li>
-                    <li>
+                    <li className="nav_list_item">
                         <a href="/newtrip" className="nav_link">New Trip</a>
                     </li>
-                    <li>
+                    <li className="nav_list_item">
                         <a href="/admin" className="nav_link">Admin</a>
                     </li>
                 </ul>

@@ -1,19 +1,21 @@
 header {
-    background-color: #fff;
+    background-color: rgb(25, 182, 221);
     border-bottom: 1px solid #e6e6e6;
-    height: 60px;
-    line-height: 60px;
-    padding: 0 20px;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 100;
 }
 
-.header_nav {
+.header_nav ul {
     display: flex;
+    list-style: none;
     gap: 10px;
-    align-items: center;
+}
+
+.nav_list_item {
+    border: 1px solid black;
+    padding: 5px;
 }
 
 .nav_link {
@@ -21,4 +23,5 @@ header {
     font-size: 16px;
     font-weight: 600;
     text-decoration: none;
+    display: inline-block;
 }
