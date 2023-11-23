@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../common/auth-context/AuthContext.js';
 import "./LoginForm.css"
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const { successfulLogin } = useAuth();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -34,6 +38,9 @@ const LoginForm = () => {
   
         const data = await response.json();
         console.log('JWT Token:', data.jwtToken);
+        localStorage.setItem('jwtToken', data.jwtToken);
+        successfulLogin();
+        navigate('/');
       } catch (error) {
         console.error('Error:', error.message);
       }
@@ -42,25 +49,21 @@ const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Username:
         <input
           type="text"
           value={username}
           onChange={handleUsernameChange}
           placeholder="Enter your username"
-          required
-        />
+          required />
       </label>
 
       <label>
-        Password:
         <input
           type="password"
           value={password}
           onChange={handlePasswordChange}
           placeholder="Enter your password"
-          required
-        />
+          required />
       </label>
 
       <button type="submit">Login</button>

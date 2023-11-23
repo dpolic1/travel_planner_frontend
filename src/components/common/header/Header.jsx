@@ -1,27 +1,51 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import "./Header.css"
+import {useAuth} from "../auth-context/AuthContext.js";
 
 export default function Header() {
+    const { isAuthenticated } = useAuth();
+
     return (
         <header>
-            <nav  className="header_nav">
-                <ul>
-                    <li className="nav_list_item">
-                        <a href="/login" className="nav_link">Login</a>
-                    </li>
-                    <li className="nav_list_item">
-                        <a href="/register" className="nav_link">Register</a>
-                    </li>
-                    <li className="nav_list_item">
-                        <a href="/" className="nav_link">Home</a>
-                    </li>
-                    <li className="nav_list_item">
-                        <a href="/newtrip" className="nav_link">New Trip</a>
-                    </li>
-                    <li className="nav_list_item">
-                        <a href="/admin" className="nav_link">Admin</a>
-                    </li>
-                </ul>
-            </nav>
+          <nav className="header_nav">
+            <ul>
+              {!isAuthenticated && (
+                <>
+                  <li className="nav_list_item">
+                    <Link to="/login" className="nav_link">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav_list_item">
+                    <Link to="/register" className="nav_link">
+                      Register
+                    </Link>
+                  </li>
+                </>
+              )}
+    
+              {isAuthenticated && (
+                <>
+                  <li className="nav_list_item">
+                    <Link to="/" className="nav_link">
+                      Home
+                    </Link>
+                  </li>
+                  <li className="nav_list_item">
+                    <Link to="/newtrip" className="nav_link">
+                      New Trip
+                    </Link>
+                  </li>
+                  <li className="nav_list_item">
+                    <Link to="/admin" className="nav_link">
+                      Admin
+                    </Link>
+                  </li>
+                </>
+              )}
+            </ul>
+          </nav>
         </header>
-    );
-}
+      );
+    }
