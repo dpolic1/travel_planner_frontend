@@ -11,7 +11,6 @@ const RegisterForm = () => {
     const [password, setPassword] = useState('');
     
     const navigate = useNavigate();
-    const { successfulLogin } = useAuth();
 
     const handleNameChange = (e) => {
         setName(e.target.value);
