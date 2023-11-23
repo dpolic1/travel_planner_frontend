@@ -20,11 +20,6 @@ const Home = () => {
       <h1>Welcome to the Home Page!</h1>
       <h1>Welcome to the Home Page!</h1>
       <h1>Welcome to the Home Page!</h1>
-      <h1>Welcome to the Home Page!</h1>
-      <h1>Welcome to the Home Page!</h1>
-      <h1>Welcome to the Home Page!</h1>
-      <h1>Welcome to the Home Page!</h1>
-      <h1>Welcome to the Home Page!</h1>
       {/* Other home content */}
     </div>
   );
