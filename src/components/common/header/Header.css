@@ -5,6 +5,7 @@ header {
     top: 0;
     width: 100%;
     z-index: 100;
+    padding: 0px 10px;
 }
 
 .header_nav ul {
@@ -16,6 +17,13 @@ header {
 .nav_list_item {
     border: 1px solid black;
     padding: 5px;
+}
+
+.login_tabs {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+    margin-left: auto;
 }
 
 .nav_link {

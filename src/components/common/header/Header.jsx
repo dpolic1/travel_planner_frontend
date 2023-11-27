@@ -11,7 +11,7 @@ export default function Header() {
           <nav className="header_nav">
             <ul>
               {!isAuthenticated && (
-                <>
+                <div class="login_tabs">
                   <li className="nav_list_item">
                     <Link to="/login" className="nav_link">
                       Login
@@ -22,7 +22,7 @@ export default function Header() {
                       Register
                     </Link>
                   </li>
-                </>
+                </div>
               )}
     
               {isAuthenticated && (

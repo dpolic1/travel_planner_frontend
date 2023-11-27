@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import './NewTrip.css';
+import TripForm from './components/TripForm.jsx';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../common/auth-context/AuthContext.js';
 
@@ -15,13 +17,7 @@ const NewTrip = () => {
   return (
     <div>
         <div>
-          <h1>Welcome to the New Trip Page!</h1>
-          <h1>Welcome to the New Trip Page!</h1>
-          <h1>Welcome to the New Trip Page!</h1>
-          <h1>Welcome to the New Trip Page!</h1>
-          <h1>Welcome to the New Trip Page!</h1>
-          <h1>Welcome to the New Trip Page!</h1>
-          <h1>Welcome to the New Trip Page!</h1>
+            <TripForm />
         </div>
     </div>
   );
