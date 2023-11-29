@@ -1,0 +1,28 @@
+form {
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid #000000; /* Border color, adjust as needed */
+    margin-top: 100px;
+}
+
+.form_top_elements {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 95%;
+    margin-top: 10px;
+}
+
+.form_top_elements input {
+    height: 40px; /* Adjust the height as needed */
+    width: 200px; /* Adjust the width as needed */
+}
+
+.form_top_elements button {
+    padding: 8px 25px; /* Adjust the padding as needed */
+    background-color: #007bff; /* Change to your preferred button color */
+    color: #fff; /* Change to your preferred text color */
+    border: none;
+    cursor: pointer;
+    height: 40px;
+}
