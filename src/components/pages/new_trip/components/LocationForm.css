@@ -1,0 +1,8 @@
+.location_form {
+    width: 100%;
+    margin: 0 auto;
+    border: 2px dashed rgb(25, 182, 221);
+    background-color: rgb(118, 211, 235);
+    padding: 20px;
+    margin: 20px 0px;
+}

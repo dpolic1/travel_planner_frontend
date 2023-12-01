@@ -16,9 +16,9 @@ const NewTrip = () => {
   }, [isAuthenticated, navigate]);
   return (
     <div>
-        <div>
-            <TripForm />
-        </div>
+      <div>
+        <TripForm />
+      </div>
     </div>
   );
 };
