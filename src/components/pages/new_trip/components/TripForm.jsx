@@ -3,7 +3,6 @@ import DestinationForm from './DestinationForm'
 import "./TripForm.css"
 
 export default function TripForm() {
-    const [formData, setFormData] = useState({})
     const [destinations, setDestinations] = useState([])
     const [countries, setCountries] = useState([]);
 
@@ -21,14 +20,12 @@ export default function TripForm() {
       }, []);
 
     const handleAddDestination = () => {
-        setDestinations([...destinations, { countryId: `country_${destinations.length}` }]);
+        setDestinations([...destinations, { countryUID: Date.now() }]);     
     }
 
-    const handleDeleteDestination = (index) => {
-        console.log("deleting destination with index: " + index);
-        const updatedDestinations = [...destinations];
-        updatedDestinations.splice(index, 1);
-        setDestinations(updatedDestinations);
+    const handleDeleteDestination = (countryUID) => {
+        console.log("deleting destination with index: " + countryUID);
+        setDestinations((destinations) => destinations.filter((destination) => destination.countryUID !== countryUID));
     };
 
     const handleSubmit = async (e) => {
@@ -47,15 +44,16 @@ export default function TripForm() {
                 <button type="button" onClick={handleAddDestination}>+ New Destination</button>
             </div>
             <div className="destinations">
-                {destinations.map((destination, idx) => (
+                {destinations.map((destination) => (
                     <DestinationForm 
-                        key={idx} 
-                        index={idx}
+                        key={destination.countryUID} 
+                        countryUID={destination.countryUID}
                         countries={countries}
                         onDelete={handleDeleteDestination}    
                     />
                 ))}
             </div>
+
             <div className="form_bottom_elements">
                 <div className="date_picker">
                     <label>Start date</label>
