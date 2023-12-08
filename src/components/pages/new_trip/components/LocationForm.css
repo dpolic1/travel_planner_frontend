@@ -6,3 +6,16 @@
     padding: 20px;
     margin: 20px 0px;
 }
+
+.location_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.location_forms{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
