@@ -5,18 +5,49 @@ import LocationForm from './LocationForm';
 
 export default function DestinationForm({ countryUID , countries, onDelete}) {
   const [locations, setLocations] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedCountryId, setSelectedCountryId] = useState(null);
+
+  const [cities, setCities] = useState([]);
+  const [specific_locations, setSpecificLocations] = useState([]);
 
   const handleCountryChange = (event) => {
-    console.log('Selected Country');
     if(locations.length === 0) {
-      setLocations([...locations, { locationId: `location_${locations.length}` }]);
+      setLocations([...locations, { locationId: `location_${Date.now()}` }]);
     }
-    setSelectedCountry(event.target.value);
+    setSelectedCountryId(event.target.value);
+    fetchCountryCitiesAndLocations(event.target.value);
+    
   };
+
+  function fetchCountryCitiesAndLocations(countryId) {
+    // Fetch cities
+    fetch('http://localhost:8081/cities/country/' + countryId, {
+      method: 'GET',
+      headers: {
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`, 
+          'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => setCities(data))
+    .catch((error) => console.error('Error fetching cities:', error));
+
+    // Fetch specific locations
+    fetch('http://localhost:8081/specific_locations/country/' + countryId, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`, 
+            'Content-Type': 'application/json',
+        },
+    })
+    .then((response) => response.json())
+    .then((data) => setSpecificLocations(data))
+    .catch((error) => console.error('Error fetching specific locations:', error));
+  }
 
   const handleAddLocation = () => {
     setLocations([...locations, { locationUID: `location_${Date.now()}` }]);
+    console.log(cities);
   }
 
   const handleDeleteLocation = (locationUID) => {
@@ -41,7 +72,7 @@ export default function DestinationForm({ countryUID , countries, onDelete}) {
           </select>
         </div>
         <div className="header_buttons">
-          {selectedCountry && (
+          {selectedCountryId && (
             <div className="add_location">
               <button type="button" onClick={handleAddLocation}>+ New Location</button>
             </div>
@@ -56,7 +87,10 @@ export default function DestinationForm({ countryUID , countries, onDelete}) {
           <LocationForm 
             key={location.locationUID} 
             locationUID={location.locationUID}
-            locations={locations} 
+            countryId={selectedCountryId}
+            cities={cities}
+            specific_locations={specific_locations}
+            onCountryChange={handleCountryChange}
             onDelete={handleDeleteLocation}   
           />
         ))}

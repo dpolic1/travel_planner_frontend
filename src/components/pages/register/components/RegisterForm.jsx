@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../common/auth-context/AuthContext.js';
 import "./RegisterForm.css"
 
 const RegisterForm = () => {

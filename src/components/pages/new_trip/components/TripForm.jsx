@@ -7,7 +7,7 @@ export default function TripForm() {
     const [countries, setCountries] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8081/countries', {
+        fetch('http://localhost:8081/countries/simple', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`, 

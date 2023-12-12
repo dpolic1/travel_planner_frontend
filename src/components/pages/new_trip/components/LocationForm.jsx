@@ -1,10 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "./LocationForm.css";
 
-export default function LocationForm({ locationUID, country_locations, onDelete }) {
+export default function LocationForm({ locationUID, countryId, cities, specific_locations, onCountryChange, onDelete }) {
     const [selectedCity, setSelectedCity] = useState('');
-    const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');
+    const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');    
+
+    useEffect(() => {
+        // Reset selected options when the country changes
+        setSelectedCity('');
+        setSelectedSpecificLocation('');
+    }, [countryId]); // Only re-run the effect if countryId changes
 
     const handleCityChange = (e) => {
         setSelectedCity(e.target.value);
@@ -16,7 +22,6 @@ export default function LocationForm({ locationUID, country_locations, onDelete 
         setSelectedCity(''); // Reset the selected city when location changes
     };
 
-
     return (
         <section className="location_form" key={locationUID}>
             <div className="location_header">
@@ -27,11 +32,11 @@ export default function LocationForm({ locationUID, country_locations, onDelete 
                         onChange={handleCityChange}
                     >
                         <option value="" disabled>Choose a city...</option>
-                        <option value="1">City 1</option>
-                        <option value="2">City 2</option>
-                        <option value="3">City 3</option>
-                        <option value="4">City 4</option>
-                        <option value="5">City 5</option>
+                        {cities.map((city) => (
+                            <option key={city.id} value={city.id}>
+                                {city.name}
+                            </option>
+                        ))}
                     </select>
                     <select
                         id={`location-${locationUID}`}
@@ -39,11 +44,11 @@ export default function LocationForm({ locationUID, country_locations, onDelete 
                         onChange={handleSpecificLocationChange}
                     >
                         <option value="" disabled>Choose a location...</option>
-                        <option value="1">Location 1</option>
-                        <option value="2">Location 2</option>
-                        <option value="3">Location 3</option>
-                        <option value="4">Location 4</option>
-                        <option value="5">Location 5</option>
+                        {specific_locations.map((specific_location) => (
+                            <option key={specific_location.id} value={specific_location.id}>
+                                {specific_location.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
                 <div className="delete_location_button">
