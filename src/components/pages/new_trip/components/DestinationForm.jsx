@@ -1,22 +1,27 @@
 import React from 'react';
 import { useState } from 'react';
 import "./DestinationForm.css";
+import useGlobalStore from '../../../../library/store/GlobalStore'
 import LocationForm from './LocationForm';
 
-export default function DestinationForm({ countryUID , countries, onDelete}) {
+export default function DestinationForm({ destinationUID , countries, onDelete}) {
   const [locations, setLocations] = useState([]);
   const [selectedCountryId, setSelectedCountryId] = useState(null);
 
   const [cities, setCities] = useState([]);
   const [specific_locations, setSpecificLocations] = useState([]);
 
+  const destinationRequests = useGlobalStore(state => state.destinationRequests);
+
   const handleCountryChange = (event) => {
+    destinationRequests.find(destination => destination.destinationUID === destinationUID).countryId = event.target.value;
     if(locations.length === 0) {
-      setLocations([...locations, { locationId: `location_${Date.now()}` }]);
+      destinationRequests.find(destination => destination.destinationUID === destinationUID).locations = [];
+
+      addLocation();
     }
     setSelectedCountryId(event.target.value);
     fetchCountryCitiesAndLocations(event.target.value);
-    
   };
 
   function fetchCountryCitiesAndLocations(countryId) {
@@ -46,20 +51,29 @@ export default function DestinationForm({ countryUID , countries, onDelete}) {
   }
 
   const handleAddLocation = () => {
-    setLocations([...locations, { locationUID: `location_${Date.now()}` }]);
-    console.log(cities);
+    addLocation();
+  }
+
+  function addLocation(){
+    const location = { locationUID: `location_${Date.now()}` }
+    setLocations([...locations, location ]);
+    destinationRequests.find(destination => destination.destinationUID === destinationUID).locations.push(location);
+    console.log(destinationRequests);
   }
 
   const handleDeleteLocation = (locationUID) => {
     setLocations((locations) => locations.filter((location) => location.locationUID !== locationUID));
+    const parentDestination = destinationRequests.find(destination => destination.destinationUID === destinationUID)
+    parentDestination.locations = parentDestination.locations.filter((location) => location.locationUID !== locationUID);
+    console.log(destinationRequests);
   };
 
   return (
-    <section className="destination_form" key={countryUID}>
+    <section className="destination_form" key={destinationUID}>
       <div className="destination_header">
         <div>
           <select className="form-control" 
-            id={countryUID} 
+            id={destinationUID} 
             defaultValue="" 
             required
             onChange={handleCountryChange}>
@@ -77,7 +91,7 @@ export default function DestinationForm({ countryUID , countries, onDelete}) {
               <button type="button" onClick={handleAddLocation}>+ New Location</button>
             </div>
           )}
-          <button type="button" onClick={() => onDelete(countryUID)}>Delete</button>
+          <button type="button" onClick={() => onDelete(destinationUID)}>Delete</button>
         </div>
         
         
@@ -87,6 +101,7 @@ export default function DestinationForm({ countryUID , countries, onDelete}) {
           <LocationForm 
             key={location.locationUID} 
             locationUID={location.locationUID}
+            parentDestinationUID={destinationUID}
             countryId={selectedCountryId}
             cities={cities}
             specific_locations={specific_locations}

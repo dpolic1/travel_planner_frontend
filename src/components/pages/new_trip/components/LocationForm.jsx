@@ -1,10 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "./LocationForm.css";
+import useGlobalStore from '../../../../library/store/GlobalStore';
 
-export default function LocationForm({ locationUID, countryId, cities, specific_locations, onCountryChange, onDelete }) {
+export default function LocationForm({ locationUID, parentDestinationUID, countryId, cities, specific_locations, onCountryChange, onDelete }) {
     const [selectedCity, setSelectedCity] = useState('');
-    const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');    
+    const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');  
+    
+    const destinationRequests = useGlobalStore(state => state.destinationRequests);
 
     useEffect(() => {
         // Reset selected options when the country changes
@@ -15,12 +18,22 @@ export default function LocationForm({ locationUID, countryId, cities, specific_
     const handleCityChange = (e) => {
         setSelectedCity(e.target.value);
         setSelectedSpecificLocation(''); // Reset the selected specific location when city changes
+        updateSelectedLocationFields(parentDestinationUID, e.target.value, '');
     };
 
     const handleSpecificLocationChange = (e) => {
-        setSelectedSpecificLocation(e.target.value);
         setSelectedCity(''); // Reset the selected city when location changes
+        setSelectedSpecificLocation(e.target.value);
+        updateSelectedLocationFields(parentDestinationUID, '', e.target.value);
     };
+
+    function updateSelectedLocationFields(parentDestinationUID, cityId, specificLocationId) {
+        const destinationRequest = destinationRequests.find(destination => destination.destinationUID === parentDestinationUID);
+        const locationRequest = destinationRequest.locations.find(location => location.locationUID === locationUID);
+        console.log('CITY:' + cityId + " SL: " + specificLocationId);
+        locationRequest.cityId = cityId;
+        locationRequest.specificLocationId = specificLocationId;
+    }
 
     return (
         <section className="location_form" key={locationUID}>
