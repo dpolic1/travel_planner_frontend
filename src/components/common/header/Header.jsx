@@ -5,6 +5,7 @@ import {useAuth} from "../auth-context/AuthContext.js";
 
 export default function Header() {
     const { isAuthenticated } = useAuth();
+    const { isAdmin } = useAuth();
 
     return (
         <header>
@@ -37,11 +38,13 @@ export default function Header() {
                       New Trip
                     </Link>
                   </li>
-                  <li className="nav_list_item">
-                    <Link to="/admin" className="nav_link">
-                      Admin
-                    </Link>
-                  </li>
+                  {isAdmin && (
+                                <li className="nav_list_item">
+                                    <Link to="/admin" className="nav_link">
+                                        Admin
+                                    </Link>
+                                </li>
+                            )}
                 </>
               )}
             </ul>

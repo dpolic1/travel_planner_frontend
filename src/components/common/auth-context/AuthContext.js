@@ -4,9 +4,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
-  const successfulLogin = () => {
+  const successfulLogin = (isAdmin) => {
     setIsAuthenticated(true);
+    if(isAdmin) {
+      setIsAdmin(true);
+    }
   };
 
   const logout = () => {
@@ -14,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, successfulLogin, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isAdmin, successfulLogin, logout }}>
       {children}
     </AuthContext.Provider>
   );

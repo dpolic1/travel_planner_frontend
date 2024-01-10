@@ -39,7 +39,7 @@ const LoginForm = () => {
         const data = await response.json();
         console.log('JWT Token:', data.jwtToken);
         localStorage.setItem('jwtToken', data.jwtToken);
-        successfulLogin();
+        successfulLogin(data.isAdmin);
         navigate('/');
       } catch (error) {
         console.error('Error:', error.message);

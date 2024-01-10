@@ -8,6 +8,9 @@ const RegisterForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    // New state variable for admin registration
+    const [isAdmin, setIsAdmin] = useState(false);
     
     const navigate = useNavigate();
 
@@ -31,6 +34,11 @@ const RegisterForm = () => {
         setPassword(e.target.value);
     }
 
+    const handleAdminChange = (e) => {
+        setIsAdmin(e.target.checked);
+    }
+        
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -46,6 +54,7 @@ const RegisterForm = () => {
                     username: username,
                     email: email,
                     password: password,
+                    isAdmin: isAdmin
                 }),
             });
 
@@ -59,11 +68,10 @@ const RegisterForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="register_input" onSubmit={handleSubmit}>
             <label>
                 <input
                     type="text"
-                    id="register_input"
                     value={name}
                     onChange={handleNameChange}
                     placeholder="Enter your name"
@@ -73,7 +81,6 @@ const RegisterForm = () => {
             <label>
                 <input
                     type="text"
-                    id="register_input"
                     value={surname}
                     onChange={handleSurnameChange}
                     placeholder="Enter your surname"
@@ -105,6 +112,15 @@ const RegisterForm = () => {
                     onChange={handlePasswordChange}
                     placeholder="Enter your password"
                     required />
+            </label>
+
+            <label>
+                <input
+                    type="checkbox"
+                    checked={isAdmin}
+                    onChange={handleAdminChange}
+                />
+                Register as Admin
             </label>
 
             <button type="submit">Register</button>
