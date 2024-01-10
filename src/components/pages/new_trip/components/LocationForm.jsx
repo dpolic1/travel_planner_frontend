@@ -30,7 +30,6 @@ export default function LocationForm({ locationUID, parentDestinationUID, countr
     function updateSelectedLocationFields(parentDestinationUID, cityId, specificLocationId) {
         const destinationRequest = destinationRequests.find(destination => destination.destinationUID === parentDestinationUID);
         const locationRequest = destinationRequest.locations.find(location => location.locationUID === locationUID);
-        console.log('CITY:' + cityId + " SL: " + specificLocationId);
         locationRequest.cityId = cityId;
         locationRequest.specificLocationId = specificLocationId;
     }

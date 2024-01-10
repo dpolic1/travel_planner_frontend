@@ -8,8 +8,6 @@ const RegisterForm = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    // New state variable for admin registration
     const [isAdmin, setIsAdmin] = useState(false);
     
     const navigate = useNavigate();

@@ -4,6 +4,10 @@ import useGlobalStore from '../../../../library/store/GlobalStore'
 import "./TripForm.css"
 
 export default function TripForm() {
+    const [tripName, setTripName] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+
     const [destinations, setDestinations] = useState([])
     const [countries, setCountries] = useState([]);
 
@@ -24,6 +28,18 @@ export default function TripForm() {
             .catch((error) => console.error('Error fetching countries:', error));
     }, []);
 
+    const handleTripNameChange = (e) => {
+        setTripName(e.target.value);
+    }
+
+    const handleStartDateChange = (e) => {
+        setStartDate(e.target.value);
+    }
+
+    const handleEndDateChange = (e) => {
+        setEndDate(e.target.value);
+    }
+
     const handleAddDestination = () => {
         const destination = { destinationUID: Date.now() }
         setDestinations([...destinations, destination]);
@@ -38,7 +54,41 @@ export default function TripForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //todo
+        
+        console.log(tripName);
+        console.log(startDate);
+        console.log(endDate);
+
+        try {
+            const response = await fetch('http://localhost:8081/trips', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+                },
+                body: JSON.stringify({
+                    name: tripName,
+                    startDate: startDate,
+                    endDate: endDate,
+                    destinationRequests: destinationRequest.map((destination) => ({
+                        countryId: destination.countryId,
+                        locationRequests: destination.locations.map((location) => ({
+                            name: location.name,
+                            cityId: location.cityId,
+                            specificLocationId: location.specificLocationId
+                        })),
+                    })),
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Registration failed');
+            }
+            alert("Trip created successfully");
+        }
+        catch (error) {
+            console.error('Error:', error.message);
+        }
     }
 
     return (
@@ -48,6 +98,8 @@ export default function TripForm() {
                     type="text"
                     placeholder="Enter trip name"
                     required
+                    value={tripName}
+                    onChange={handleTripNameChange}
                 />
 
                 <button type="button" onClick={handleAddDestination}>+ New Destination</button>
@@ -66,11 +118,19 @@ export default function TripForm() {
             <div className="form_bottom_elements">
                 <div className="date_picker">
                     <label>Start date</label>
-                    <input type="date" />
+                    <input 
+                    type="date"
+                    value={startDate}
+                    onChange={handleStartDateChange} 
+                    />
                 </div>
                 <div className="date_picker">
                     <label>End date</label>
-                    <input type="date" />
+                    <input
+                    type="date"
+                    value={endDate}
+                    onChange={handleEndDateChange} 
+                    />
                 </div>
 
                 <button type="submit">Create Trip</button>
