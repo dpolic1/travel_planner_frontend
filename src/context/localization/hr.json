@@ -1,0 +1,22 @@
+{
+  "language": "HR",
+
+  "nav_login": "Prijava",
+  "nav_register": "Registracija",
+
+  "nav_home": "Naslovna",
+  "nav_newtrip": "Novo putovanje",
+  "nav_admin": "Administracija",
+
+  "login_username": "Unesite korisničko ime",
+  "login_password": "Unesite lozinku",
+  "login_submit": "Prijavi se",
+
+  "register_name": "Unesite ime",
+  "register_surname": "Unesite prezime",
+  "register_username": "Unesite korisničko ime",
+  "register_email": "Unesite email",
+  "register_password": "Unesite lozinku",
+  "register_admin": "Registriraj se kao admin",
+  "register_submit": "Registriraj se"
+}

@@ -1,0 +1,22 @@
+{
+  "language": "EN",
+
+  "nav_login": "Login",
+  "nav_register": "Register",
+
+  "nav_home": "Home",
+  "nav_newtrip": "New trip",
+  "nav_admin": "Admin",
+
+  "login_username": "Enter your username",
+  "login_password": "Enter your password",
+  "login_submit": "Login",
+
+  "register_name": "Enter your name",
+  "register_surname": "Enter your surname",
+  "register_username": "Enter your username",
+  "register_email": "Enter your email",
+  "register_password": "Enter your password",
+  "register_admin": "Register as admin",
+  "register_submit": "Register"
+}

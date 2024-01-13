@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../common/auth-context/AuthContext.js';
 import "./LoginForm.css"
+import {useLocalization} from "../../../../context/LocalizationContext";
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { successfulLogin } = useAuth();
+
+  const { t } = useLocalization();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -53,7 +56,7 @@ const LoginForm = () => {
           type="text"
           value={username}
           onChange={handleUsernameChange}
-          placeholder="Enter your username"
+          placeholder={t("login_username")}
           required />
       </label>
 
@@ -62,11 +65,11 @@ const LoginForm = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
-          placeholder="Enter your password"
+          placeholder={t("login_password")}
           required />
       </label>
 
-      <button type="submit">Login</button>
+      <button type="submit">{t("login_submit")}</button>
     </form>
   );
 };
