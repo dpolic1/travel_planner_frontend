@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./RegisterForm.css"
+import {useLocalization} from "../../../../context/LocalizationContext";
 
 const RegisterForm = () => {
     const [name, setName] = useState('');
@@ -9,6 +10,8 @@ const RegisterForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isAdmin, setIsAdmin] = useState(false);
+
+    const { t } = useLocalization();
     
     const navigate = useNavigate();
 
@@ -72,7 +75,7 @@ const RegisterForm = () => {
                     type="text"
                     value={name}
                     onChange={handleNameChange}
-                    placeholder="Enter your name"
+                    placeholder={t("register_name")}
                     required />
             </label>
 
@@ -81,7 +84,7 @@ const RegisterForm = () => {
                     type="text"
                     value={surname}
                     onChange={handleSurnameChange}
-                    placeholder="Enter your surname"
+                    placeholder={t("register_surname")}
                     required />
             </label>
 
@@ -90,7 +93,7 @@ const RegisterForm = () => {
                     type="text"
                     value={username}
                     onChange={handleUsernameChange}
-                    placeholder="Enter your username"
+                    placeholder={t("register_username")}
                     required />
             </label>
 
@@ -99,7 +102,7 @@ const RegisterForm = () => {
                     type="email"
                     value={email}
                     onChange={handleEmailChange}
-                    placeholder="Enter your email"
+                    placeholder={t("register_email")}
                     required />
             </label>
 
@@ -108,7 +111,7 @@ const RegisterForm = () => {
                     type="password"
                     value={password}
                     onChange={handlePasswordChange}
-                    placeholder="Enter your password"
+                    placeholder={t("register_password")}
                     required />
             </label>
 
@@ -118,10 +121,10 @@ const RegisterForm = () => {
                     checked={isAdmin}
                     onChange={handleAdminChange}
                 />
-                Register as Admin
+                {t("register_admin")}
             </label>
 
-            <button type="submit">Register</button>
+            <button type="submit">{t("register_submit")}</button>
         </form>
     );
 }
