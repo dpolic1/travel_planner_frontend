@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import DestinationForm from './DestinationForm'
+import { useNavigate } from 'react-router-dom'
 import useGlobalStore from '../../../../library/store/GlobalStore'
 import "./TripForm.css"
 
 export default function TripForm() {
+    const navigate = useNavigate();
+
     const [tripName, setTripName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -84,7 +87,8 @@ export default function TripForm() {
             if (!response.ok) {
                 throw new Error('Registration failed');
             }
-            alert("Trip created successfully");
+            window.alert("Trip created successfully!");
+            navigate('/');
         }
         catch (error) {
             console.error('Error:', error.message);
