@@ -13,7 +13,9 @@ const DestinationUpdateForm = ({destination, countries, countryId, locations}) =
   };
 
     useEffect(() => {
+      if(specific_locations.length === 0 || cities.length === 0){
         fetchCountryCitiesAndLocations(countryId);
+      }
     });
 
   function fetchCountryCitiesAndLocations(countryId) {
