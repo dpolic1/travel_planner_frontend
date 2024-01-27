@@ -36,18 +36,18 @@ export default function Header() {
             <>
               <li className="nav_list_item">
                 <Link to="/" className="nav_link">
-                  Home
+                {t("nav_home")}
                 </Link>
               </li>
               <li className="nav_list_item">
                 <Link to="/newtrip" className="nav_link">
-                  New Trip
+                {t("nav_newtrip")}
                 </Link>
               </li>
               {isAdmin && (
                 <li className="nav_list_item">
                   <Link to="/admin" className="nav_link">
-                    Admin
+                  {t("nav_admin")}
                   </Link>
                 </li>
               )}

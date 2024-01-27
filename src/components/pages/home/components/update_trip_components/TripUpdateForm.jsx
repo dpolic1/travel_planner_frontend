@@ -3,12 +3,15 @@ import { useState } from "react";
 import DestinationUpdateForm from "./DestinationUpdateForm";
 import "./TripUpdateForm.css";
 import { X } from "lucide-react";
+import {useLocalization} from "../../../../../context/LocalizationContext";
 
 const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
     const [tripName, setTripName] = useState(tripData?.name);
     const [startDate, setStartDate] = useState(tripData?.startDate);
     const [endDate, setEndDate] = useState(tripData?.endDate);
     const [countries, setCountries] = useState([]);
+
+    const { t, language, setLanguage } = useLocalization();
 
     console.log(tripData);
 
@@ -96,7 +99,7 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
 
             <div className="update_form_bottom_elements">
                 <div className="update_date_picker">
-                    <label>Start date</label>
+                    <label>{t("start_date")}</label>
                     <input 
                     type="date"
                     value={startDate}
@@ -104,7 +107,7 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
                     />
                 </div>
                 <div className="update_date_picker">
-                    <label>End date</label>
+                    <label>{t("end_date")}</label>
                     <input
                     type="date"
                     value={endDate}
@@ -112,7 +115,7 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
                     />
                 </div>
 
-                <button type="submit">Update Trip</button>
+                <button type="submit">{t("update_trip")}</button>
             </div>
         </form>
     )

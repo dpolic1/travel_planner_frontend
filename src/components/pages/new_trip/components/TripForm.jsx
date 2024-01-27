@@ -3,6 +3,7 @@ import DestinationForm from './DestinationForm'
 import { useNavigate } from 'react-router-dom'
 import useGlobalStore from '../../../../library/store/GlobalStore'
 import "./TripForm.css"
+import { useLocalization } from "../../../../context/LocalizationContext";
 
 export default function TripForm() {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function TripForm() {
     const destinationRequest = useGlobalStore(state => state.destinationRequests);
     const setDestinationRequest = useGlobalStore(state => state.setDestinationRequests);
 
+    const { t, language, setLanguage } = useLocalization();
 
     useEffect(() => {
         fetch('http://localhost:8081/countries/simple', {
@@ -100,13 +102,13 @@ export default function TripForm() {
             <div className="form_top_elements">
                 <input
                     type="text"
-                    placeholder="Enter trip name"
+                    placeholder={t("trip_name")}
                     required
                     value={tripName}
                     onChange={handleTripNameChange}
                 />
 
-                <button type="button" onClick={handleAddDestination}>+ New Destination</button>
+                <button type="button" onClick={handleAddDestination}>{t("new_destination")}</button>
             </div>
             <div className="destinations">
                 {destinations.map((destination) => (
@@ -121,7 +123,7 @@ export default function TripForm() {
 
             <div className="form_bottom_elements">
                 <div className="date_picker">
-                    <label>Start date</label>
+                    <label>{t("start_date")}</label>
                     <input 
                     type="date"
                     value={startDate}
@@ -129,7 +131,7 @@ export default function TripForm() {
                     />
                 </div>
                 <div className="date_picker">
-                    <label>End date</label>
+                    <label>{t("end_date")}</label>
                     <input
                     type="date"
                     value={endDate}
@@ -137,7 +139,7 @@ export default function TripForm() {
                     />
                 </div>
 
-                <button type="submit">Create Trip</button>
+                <button type="submit">{t("create_trip")}</button>
             </div>
         </form>
     )

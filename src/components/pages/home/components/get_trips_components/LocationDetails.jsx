@@ -1,16 +1,23 @@
 import React from 'react';
+import {useLocalization} from "../../../../../context/LocalizationContext";
 
-const LocationDetails = ({ location }) => (
-  <div>
-    <p>
-      {location.specificLocationName && (
-        <span>Specific Location: {location.specificLocationName}</span>
-      )}
-      {location.cityName && (
-        <span>City: {location.cityName}</span>
-      )}
-    </p>
-  </div>
-);
+
+const LocationDetails = ({ location }) => {
+  const { t, language, setLanguage } = useLocalization();
+
+  return (
+    <div>
+      <p>
+        {location.specificLocationName && (
+          <span>{t("specific_location")} {location.specificLocationName}</span>
+        )}
+        {location.cityName && (
+          <span>{t("city")} {location.cityName}</span>
+        )}
+      </p>
+    </div>
+  )
+  
+};
 
 export default LocationDetails;

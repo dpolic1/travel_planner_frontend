@@ -2,12 +2,14 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import "./LocationForm.css";
 import useGlobalStore from '../../../../library/store/GlobalStore';
+import { useLocalization } from "../../../../context/LocalizationContext";
 
 export default function LocationForm({ locationUID, parentDestinationUID, countryId, cities, specific_locations, onCountryChange, onDelete }) {
     const [selectedCity, setSelectedCity] = useState('');
     const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');  
     
     const destinationRequests = useGlobalStore(state => state.destinationRequests);
+    const { t, language, setLanguage } = useLocalization();
 
     useEffect(() => {
         // Reset selected options when the country changes
@@ -43,7 +45,7 @@ export default function LocationForm({ locationUID, parentDestinationUID, countr
                         value={selectedCity}
                         onChange={handleCityChange}
                     >
-                        <option value="" disabled>Choose a city...</option>
+                        <option value="" disabled>{t("choose_city")}</option>
                         {cities.map((city) => (
                             <option key={city.id} value={city.id}>
                                 {city.name}
@@ -55,7 +57,7 @@ export default function LocationForm({ locationUID, parentDestinationUID, countr
                         value={selectedSpecificLocation}
                         onChange={handleSpecificLocationChange}
                     >
-                        <option value="" disabled>Choose a location...</option>
+                        <option value="" disabled>{t("choose_specific_location")}</option>
                         {specific_locations.map((specific_location) => (
                             <option key={specific_location.id} value={specific_location.id}>
                                 {specific_location.name}
@@ -65,7 +67,7 @@ export default function LocationForm({ locationUID, parentDestinationUID, countr
                 </div>
                 <div className="delete_location_button">
                     <button type="button" onClick={() => onDelete(locationUID)}>
-                        Delete
+                    {t("delete")}
                     </button>
                 </div>
             </div>

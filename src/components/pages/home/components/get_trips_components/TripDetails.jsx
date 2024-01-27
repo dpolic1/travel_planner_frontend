@@ -2,11 +2,16 @@ import React from 'react';
 import DestinationDetails from './DestinationDetails';
 import './TripDetails.css';
 import { Pen, Trash } from 'lucide-react';
+import {useLocalization} from "../../../../../context/LocalizationContext";
+
+
 
 const TripDetails = ({ trip, onDelete, onEdit }) => {
   const handleEditClick = (tripId) => {
     onEdit(tripId);
   };
+
+  const { t, language, setLanguage } = useLocalization();
   
   const handleDeleteClick = (tripId) => {
     onDelete(tripId);
@@ -32,8 +37,8 @@ const TripDetails = ({ trip, onDelete, onEdit }) => {
           </div>
         </div>
         <div className="header_two">
-          <p><strong>Start Date:</strong> {trip.startDate}</p>
-          <p><strong>End Date:</strong> {trip.endDate}</p>
+          <p><strong>{t("start_date")}</strong> {trip.startDate}</p>
+          <p><strong>{t("end_date")}</strong> {trip.endDate}</p>
         </div>
       </div>
       <ul>

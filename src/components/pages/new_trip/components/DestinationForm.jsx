@@ -3,6 +3,7 @@ import { useState } from 'react';
 import "./DestinationForm.css";
 import useGlobalStore from '../../../../library/store/GlobalStore'
 import LocationForm from './LocationForm';
+import { useLocalization } from "../../../../context/LocalizationContext";
 
 export default function DestinationForm({ destinationUID , countries, onDelete}) {
   const [locations, setLocations] = useState([]);
@@ -12,6 +13,8 @@ export default function DestinationForm({ destinationUID , countries, onDelete})
   const [specific_locations, setSpecificLocations] = useState([]);
 
   const destinationRequests = useGlobalStore(state => state.destinationRequests);
+
+  const { t, language, setLanguage } = useLocalization();
 
   const handleCountryChange = (event) => {
     destinationRequests.find(destination => destination.destinationUID === destinationUID).countryId = event.target.value;
@@ -77,7 +80,7 @@ export default function DestinationForm({ destinationUID , countries, onDelete})
             defaultValue="" 
             required
             onChange={handleCountryChange}>
-            <option value="" disabled>Choose a country...</option>
+            <option value="" disabled>{t("choose_country")}</option>
             {countries.map((country) => (
               <option key={country.id} value={country.id}>
                 {country.name}
@@ -88,10 +91,10 @@ export default function DestinationForm({ destinationUID , countries, onDelete})
         <div className="header_buttons">
           {selectedCountryId && (
             <div className="add_location">
-              <button type="button" onClick={handleAddLocation}>+ New Location</button>
+              <button type="button" onClick={handleAddLocation}>{t("new_location")}</button>
             </div>
           )}
-          <button type="button" onClick={() => onDelete(destinationUID)}>Delete</button>
+          <button type="button" onClick={() => onDelete(destinationUID)}>{t("delete")}</button>
         </div>
         
         

@@ -1,11 +1,14 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
+import {useLocalization} from "../../../../../context/LocalizationContext";
 
 const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, specific_locations, onCountryChange}) => {
     const [selectedCity, setSelectedCity] = useState('');
     const [selectedCityId, setSelectedCityId] = useState(location.cityId);
     const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');
     const [selectedSpecificLocationId, setSelectedSpecificLocationId] = useState(location.specificLocationId);  
+
+    const { t, language, setLanguage } = useLocalization();
 
     console.log(selectedCityId);
     console.log(selectedSpecificLocationId);
@@ -35,7 +38,7 @@ const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, s
                         value={selectedCityId}
                         onChange={handleCityChange}
                     >
-                        <option value="" disabled>Choose a city...</option>
+                        <option value="" disabled>{t("choose_city")}</option>
                         {cities.map((city) => (
                             <option key={city.id} value={city.id} selected={city.id === selectedCityId}>
                                 {city.name}
@@ -47,7 +50,7 @@ const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, s
                         value={selectedSpecificLocationId}
                         onChange={handleSpecificLocationChange}
                     >
-                        <option value="" disabled>Choose a location...</option>
+                        <option value="" disabled>{t("choose_specific_location")}</option>
                         {specific_locations.map((specific_location) => (
                             <option key={specific_location.id} value={specific_location.id} selected={specific_location.id === selectedSpecificLocationId}>
                                 {specific_location.name}

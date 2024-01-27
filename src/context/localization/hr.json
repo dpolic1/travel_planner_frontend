@@ -18,5 +18,21 @@
   "register_email": "Unesite email",
   "register_password": "Unesite lozinku",
   "register_admin": "Registriraj se kao admin",
-  "register_submit": "Registriraj se"
+  "register_submit": "Registriraj se",
+
+  "start_date": "Početni datum",
+  "end_date": "Završni datum",
+
+  "trip_name": "Unesite ime putovanja",
+  "new_destination": "Nova destinacija",
+  "new_location": "Nova lokacija",
+  "choose_country": "Izaberite državu...",
+  "choose_city": "Izaberite grad...",
+  "choose_specific_location": "Izaberite lokaciju...",
+  "delete": "Obriši",
+  "create_trip": "Kreiraj putovanje",
+  "update_trip": "Ažuriraj putovanje",
+
+  "city": "Grad",
+  "specific_location": "Lokacija"
 }

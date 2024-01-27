@@ -18,5 +18,21 @@
   "register_email": "Enter your email",
   "register_password": "Enter your password",
   "register_admin": "Register as admin",
-  "register_submit": "Register"
+  "register_submit": "Register",
+
+  "start_date": "Start date",
+  "end_date": "End date",
+
+  "trip_name": "Enter trip name",
+  "new_destination": "New destination",
+  "new_location": "New location",
+  "choose_country": "Choose a country...",
+  "choose_city": "Choose a city...",
+  "choose_specific_location": "Choose a location...",
+  "delete": "Delete",
+  "create_trip": "Create trip",
+  "update_trip": "Update trip",
+
+  "city": "City",
+  "specific_location": "Location"
 }
