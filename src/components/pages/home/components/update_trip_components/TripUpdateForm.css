@@ -1,0 +1,60 @@
+.update_trip_form {
+    width: 100%;
+    margin: 0 auto;
+    border: 2px dashed rgb(0, 50, 63);
+}
+
+.update_form_top_elements {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 95%;
+    margin-top: 20px;
+}
+
+.update_form_top_elements input {
+    height: 40px;
+    width: 200px;
+}
+
+.update_form_top_elements button {
+    padding: 8px 25px;
+    background-color: rgb(25, 182, 221);
+    color: #fff; 
+    border: none;
+    cursor: pointer;
+    height: 40px;
+}
+
+.update_destinations {
+    width: 90%;
+}
+
+.update_form_bottom_elements{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 95%;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.update_date_picker{
+    display: flex;
+    flex-direction: column;
+}
+
+.update_date_picker input {
+    height: 40px;
+    padding: 8px;
+}
+
+.update_form_bottom_elements button {
+    padding: 8px 25px;
+    background-color: rgb(25, 182, 221);
+    color: #fff; 
+    border: none;
+    cursor: pointer;
+    height: 40px;
+}

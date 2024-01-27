@@ -1,0 +1,21 @@
+.home_page_items {
+  display: flex;
+  gap: 10px;
+  margin: 0 auto;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1600px;
+  padding: 100px 20px;
+}
+
+.user_trips {
+  background-color: rgba(238, 219, 158, 0.651);
+  border-radius: 10px;
+  border: 2px dashed rgb(207, 161, 11);
+  padding: 15px 20px;
+  width: 30%;
+}
+
+.edit_trip_form {
+  width: 60%;
+}

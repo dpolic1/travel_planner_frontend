@@ -3,17 +3,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../common/auth-context/AuthContext";
 import TripDetails from "./components/get_trips_components/TripDetails";
+import "./Home.css";
+import TripUpdateForm from "./components/update_trip_components/TripUpdateForm";
 
 const Home = () => {
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [trips, setTrips] = useState([]);
+  const [tripToUpdate, setTripToUpdate] = useState(null);
 
   useEffect(() => {
     // Redirect to login if not authenticated
     if (!isAuthenticated) {
       navigate('/login');
-    } else {
+    } 
+    else {
       fetch('http://localhost:8081/trips/my-trips', {
         method: 'GET',
         headers: {
@@ -30,14 +34,47 @@ const Home = () => {
     }
   }, [isAuthenticated, navigate]);
 
+  const handleEditTrip = (tripId) => {
+    const trip = trips.find((trip) => trip.id === tripId);
+    setTripToUpdate(trip);
+  }
+
+  const handleDeleteTrip = async (tripId) => {
+    try {
+      const response = await fetch(`http://localhost:8081/trips/${tripId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        // If the DELETE request is successful, update the list of trips
+        setTrips((prevTrips) => prevTrips.filter((trip) => trip.id !== tripId));
+      } else {
+        console.error('Failed to delete trip:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
   // Render the welcome message and other content when authenticated
   return (
-    <div>
-      <h1>Welcome to the Home Page!</h1>
-      <h1>Welcome to the Home Page!</h1>
-      {trips.map((trip) => (
-        <TripDetails key={trip.id} trip={trip} />
-    ))}
+    <div className="home_page_items">
+      <div className="user_trips">
+        <div className="user_trip">
+          {trips.map((trip) => (
+            <TripDetails key={trip.id} trip={trip} onDelete={handleDeleteTrip} onEdit={handleEditTrip}/>
+          ))}
+        </div>
+      </div>
+      <div className="edit_trip_form">
+        {
+          tripToUpdate && <TripUpdateForm key={tripToUpdate.id} tripData={tripToUpdate} setTripToUpdate={setTripToUpdate}/>
+        }
+      </div>
     </div>
   );
 };

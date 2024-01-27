@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+}
+
+.trip_items {
+    background-color: rgb(118, 211, 235);
+    border-radius: 10px;
+    border: 2px dashed rgb(25, 182, 221);
+    padding: 10px;
+    margin: 8px 0px;
+}
+
+.trip_name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-bottom: 5px;
+    max-width: 200px;
+}
+
+.trip_header {
+    padding-bottom: 10px;
+}
+
+.header_one {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding-bottom: 10px;
+}
+
+.header_one button {
+    border: 2px dashed rgb(207, 161, 11);
+    background-color: rgba(241, 229, 189, 0.651);
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.header_two {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header_two p {
+    margin: 0;
+}
+  
+.header_two strong {
+    font-weight: bold;
+    margin-right: 10px;
+}
