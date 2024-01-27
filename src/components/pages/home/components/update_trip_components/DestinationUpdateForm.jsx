@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import LocationUpdateForm from "./LocationUpdateForm";
 
 const DestinationUpdateForm = ({destination, countries, countryId, locations}) => {
-  const [_locations, setLocations] = useState([]);
   const [selectedCountryId, setSelectedCountryId] = useState(countryId);
 
   const [cities, setCities] = useState([]);
@@ -13,7 +12,9 @@ const DestinationUpdateForm = ({destination, countries, countryId, locations}) =
     fetchCountryCitiesAndLocations(event.target.value);
   };
 
-  console.log(countryId);
+    useEffect(() => {
+        fetchCountryCitiesAndLocations(countryId);
+    });
 
   function fetchCountryCitiesAndLocations(countryId) {
     // Fetch cities

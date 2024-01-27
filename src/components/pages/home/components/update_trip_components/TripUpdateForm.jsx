@@ -39,7 +39,6 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await fetch(`http://localhost:8081/trips/${tripData.tripId}`, {
                 method: 'PUT',

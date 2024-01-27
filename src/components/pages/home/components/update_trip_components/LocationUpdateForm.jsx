@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, specific_locations, onCountryChange}) => {
     const [selectedCity, setSelectedCity] = useState('');
     const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');  
-    
-    console.log(cities);
 
     useEffect(() => {
         // Reset selected options when the country changes
