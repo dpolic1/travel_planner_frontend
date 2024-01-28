@@ -1,11 +1,16 @@
-header {
+.main_header {
     background-color: rgb(25, 182, 221);
+    transition: background-color 0.3s ease;
     border-bottom: 1px solid #e6e6e6;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 100;
     padding: 15px 10px;
+}
+
+.header_active {
+    background-color: #3ab51b;
 }
 
 .header_nav{
@@ -46,7 +51,7 @@ header {
 }
 
 .language_button, .logout_button {
-    background-color: rgb(25, 182, 221);
+    background-color: inherit;
     border: 1px solid #000;
     color: #000;
     font-size: 16px;

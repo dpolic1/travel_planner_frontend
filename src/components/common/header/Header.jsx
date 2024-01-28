@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import "./Header.css"
 import {useAuth} from "../auth-context/AuthContext.js";
@@ -12,8 +12,12 @@ export default function Header() {
 
   const { t, language, setLanguage } = useLocalization();
 
+  const [isActive, setIsActive] = useState(false);
+
   const changeLanguage = () => {
     setLanguage(language === "en" ? "hr" : "en");
+    setIsActive(!isActive);
+    console.log(isActive);
   };
 
   const handleLogout = async () => {
@@ -40,7 +44,7 @@ export default function Header() {
   };
 
   return (
-    <header>
+    <header className={`main_header ${isActive ? 'header_active' : ''}`}>
       <nav className="header_nav">
         <ul>
           {!isAuthenticated && (
