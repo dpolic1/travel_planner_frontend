@@ -99,7 +99,7 @@ const TripUpdateForm = ({ tripData, setTripToUpdate, reloadTrips }) => {
                 {tripData?.destinations.map((destination) => (
                     <DestinationUpdateForm
                         key={destination.id}
-                        destination={destination}
+                        currentDestination={destination}
                         countries={countries}
                         countryId={destination.countryId}
                         locations={destination.locations}

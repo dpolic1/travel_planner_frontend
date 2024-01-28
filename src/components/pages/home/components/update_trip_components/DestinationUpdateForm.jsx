@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import LocationUpdateForm from "./LocationUpdateForm";
+import useGlobalStore from "../../../../../library/store/GlobalStore";
 
-const DestinationUpdateForm = ({destination, countries, countryId, locations}) => {
+const DestinationUpdateForm = ({currentDestination, countries, countryId, locations}) => {
   const [selectedCountryId, setSelectedCountryId] = useState(countryId);
 
   const [cities, setCities] = useState([]);
   const [specific_locations, setSpecificLocations] = useState([]);
 
+  const [resetOptions, setResetOptions] = useState(false);
+
+  const updateDestinationRequests = useGlobalStore(state => state.updateDestinationRequests);
+
   const handleCountryChange = (event) => {
     setSelectedCountryId(event.target.value);
     fetchCountryCitiesAndLocations(event.target.value);
+    const updateDestinationRequest = updateDestinationRequests.find(destination => destination.id === currentDestination.id);
+    updateDestinationRequest.countryId = event.target.value;
+
+    setResetOptions(true);
   };
 
     useEffect(() => {
@@ -45,7 +54,7 @@ const DestinationUpdateForm = ({destination, countries, countryId, locations}) =
   }
 
   return (
-    <section className="destination_form" key={destination.id}>
+    <section className="destination_form" key={currentDestination.id}>
       <div className="destination_header">
         <div>
           <select className="form-control" 
@@ -63,12 +72,13 @@ const DestinationUpdateForm = ({destination, countries, countryId, locations}) =
       {<div className="locations">
         {locations.map((location) => (
           <LocationUpdateForm
-            parentDestinationID={destination.id}
+            parentDestinationID={currentDestination.id}
             countryId={selectedCountryId}
             currentLocation={location}
             cities={cities}
             specific_locations={specific_locations}
             onCountryChange={handleCountryChange}
+            resetToDefault={resetOptions}
           />
         ))}
       </div>}

@@ -4,7 +4,7 @@ import {useLocalization} from "../../../../../context/LocalizationContext";
 
 import useGlobalStore from "../../../../../library/store/GlobalStore";
 
-const LocationUpdateForm = ({parentDestinationID, countryId, currentLocation, cities, specific_locations, onCountryChange}) => {
+const LocationUpdateForm = ({parentDestinationID, countryId, currentLocation, cities, specific_locations, resetToDefault}) => {
     const [selectedCity, setSelectedCity] = useState('');
     const [selectedCityId, setSelectedCityId] = useState(currentLocation.cityId);
     const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');
@@ -19,7 +19,18 @@ const LocationUpdateForm = ({parentDestinationID, countryId, currentLocation, ci
         // Reset selected options when the country changes
         setSelectedCityId(selectedCityId || "");
         setSelectedSpecificLocationId(selectedSpecificLocationId || "");
-    }, [countryId]); // Only re-run the effect if countryId changes
+
+        if(resetToDefault){
+            setSelectedCityId("");
+            setSelectedSpecificLocationId("");
+        }
+
+    }, [countryId, resetToDefault]); // Only re-run the effect if countryId changes
+
+    const onCountryChange = () => {
+        setSelectedCityId(null);
+        setSelectedSpecificLocationId(null);
+    }
 
     const handleCityChange = (e) => {
         setSelectedCityId(e.target.value);
