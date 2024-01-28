@@ -60,6 +60,23 @@ const Home = () => {
     }
   };
 
+  const reloadTrips = () => {
+    console.log("updating")
+    setTrips([]);
+    fetch('http://localhost:8081/trips/my-trips', {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setTrips(data);
+    })
+    .catch((error) => console.error('Error fetching trips:', error));
+  }
+
   // Render the welcome message and other content when authenticated
   return (
     <div className="home_page_items">
@@ -72,7 +89,7 @@ const Home = () => {
       </div>
       <div className="edit_trip_form">
         {
-          tripToUpdate && <TripUpdateForm key={tripToUpdate.id} tripData={tripToUpdate} setTripToUpdate={setTripToUpdate}/>
+          tripToUpdate && <TripUpdateForm key={tripToUpdate.id} tripData={tripToUpdate} setTripToUpdate={setTripToUpdate} reloadTrips={reloadTrips}/>
         }
       </div>
     </div>

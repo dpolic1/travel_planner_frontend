@@ -2,16 +2,18 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import {useLocalization} from "../../../../../context/LocalizationContext";
 
-const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, specific_locations, onCountryChange}) => {
+import useGlobalStore from "../../../../../library/store/GlobalStore";
+
+const LocationUpdateForm = ({parentDestinationID, countryId, currentLocation, cities, specific_locations, onCountryChange}) => {
     const [selectedCity, setSelectedCity] = useState('');
-    const [selectedCityId, setSelectedCityId] = useState(location.cityId);
+    const [selectedCityId, setSelectedCityId] = useState(currentLocation.cityId);
     const [selectedSpecificLocation, setSelectedSpecificLocation] = useState('');
-    const [selectedSpecificLocationId, setSelectedSpecificLocationId] = useState(location.specificLocationId);  
+    const [selectedSpecificLocationId, setSelectedSpecificLocationId] = useState(currentLocation.specificLocationId);  
 
     const { t, language, setLanguage } = useLocalization();
 
-    console.log(selectedCityId);
-    console.log(selectedSpecificLocationId);
+    const updateDestinationRequests = useGlobalStore(state => state.updateDestinationRequests);
+    const setUpdateDestinationRequests = useGlobalStore(state => state.setUpdateDestinationRequests);
 
     useEffect(() => {
         // Reset selected options when the country changes
@@ -22,19 +24,28 @@ const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, s
     const handleCityChange = (e) => {
         setSelectedCityId(e.target.value);
         setSelectedSpecificLocationId(""); // Reset the selected specific location when city changes
+        updateFields(parentDestinationID, e.target.value, null);
     };
 
     const handleSpecificLocationChange = (e) => {
         setSelectedCityId(""); // Reset the selected city when location changes
         setSelectedSpecificLocationId(e.target.value);
+        updateFields(parentDestinationID, null, e.target.value);
     };
 
+    function updateFields(parentDestinationID, cityId2, specificLocationId2){
+        const updateDestinationRequest = updateDestinationRequests.find(destination => destination.id === parentDestinationID);
+        const updateLocationRequest = updateDestinationRequest.locations.find(location => location.id === currentLocation.id);
+        updateLocationRequest.cityId = parseInt(cityId2);
+        updateLocationRequest.specificLocationId = parseInt(specificLocationId2);
+    }
+
     return (
-        <section className="location_form" key={location.id}>
+        <section className="location_form" key={currentLocation.id}>
             <div className="location_header">
                 <div className="location_forms">
                     <select
-                        id={`city-${location.id}`}
+                        id={`city-${currentLocation.id}`}
                         value={selectedCityId}
                         onChange={handleCityChange}
                     >
@@ -46,7 +57,7 @@ const LocationUpdateForm = ({parentDestinationID, countryId, location, cities, s
                         ))}
                     </select>
                     <select
-                        id={`location-${location.id}`}
+                        id={`location-${currentLocation.id}`}
                         value={selectedSpecificLocationId}
                         onChange={handleSpecificLocationChange}
                     >

@@ -4,16 +4,21 @@ import DestinationUpdateForm from "./DestinationUpdateForm";
 import "./TripUpdateForm.css";
 import { X } from "lucide-react";
 import {useLocalization} from "../../../../../context/LocalizationContext";
+import { useNavigate } from 'react-router-dom'
+import useGlobalStore from "../../../../../library/store/GlobalStore";
 
-const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
+const TripUpdateForm = ({ tripData, setTripToUpdate, reloadTrips }) => {
     const [tripName, setTripName] = useState(tripData?.name);
     const [startDate, setStartDate] = useState(tripData?.startDate);
     const [endDate, setEndDate] = useState(tripData?.endDate);
     const [countries, setCountries] = useState([]);
 
+    const updateDestinationRequest = useGlobalStore(state => state.updateDestinationRequests);
+    const setUpdateDestinationRequest = useGlobalStore(state => state.setUpdateDestinationRequests);
+
     const { t, language, setLanguage } = useLocalization();
 
-    console.log(tripData);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch('http://localhost:8081/countries/simple', {
@@ -23,10 +28,13 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
                 'Content-Type': 'application/json',
             },
         })
-            .then((response) => response.json())
-            .then((data) => setCountries(data))
-            .catch((error) => console.error('Error fetching countries:', error));
-    }, []);
+        .then((response) => response.json())
+        .then((data) => {
+          setCountries(data);
+          setUpdateDestinationRequest(tripData.destinations);
+        })
+        .catch((error) => console.error('Error fetching countries:', error));
+      }, [setUpdateDestinationRequest,  updateDestinationRequest]);
 
     const handleTripNameChange = (e) => {
         setTripName(e.target.value);
@@ -43,7 +51,7 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:8081/trips/${tripData.tripId}`, {
+            const response = await fetch(`http://localhost:8081/trips/${tripData.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,21 +61,23 @@ const TripUpdateForm = ({ tripData, setTripToUpdate }) => {
                     name: tripName,
                     startDate: startDate,
                     endDate: endDate,
-                    /* destinationRequests: destinationRequest.map((destination) => ({
+                    destinationRequests: updateDestinationRequest.map((destination) => ({
                         countryId: destination.countryId,
                         locationRequests: destination.locations.map((location) => ({
-                            name: location.name,
-                            cityId: location.cityId,
-                            specificLocationId: location.specificLocationId
+                            cityId: parseInt(location.cityId),
+                            specificLocationId: parseInt(location.specificLocationId)
                         })),
-                    })), */
+                    })),
                 }),
             });
 
             if (!response.ok) {
                 throw new Error('Registration failed');
             }
-            alert("Trip created successfully");
+            alert("Trip updated successfully");
+            setTripToUpdate(null);
+            reloadTrips();
+
         }
         catch (error) {
             console.error('Error:', error.message);

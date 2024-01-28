@@ -65,7 +65,7 @@ const DestinationUpdateForm = ({destination, countries, countryId, locations}) =
           <LocationUpdateForm
             parentDestinationID={destination.id}
             countryId={selectedCountryId}
-            location={location}
+            currentLocation={location}
             cities={cities}
             specific_locations={specific_locations}
             onCountryChange={handleCountryChange}
