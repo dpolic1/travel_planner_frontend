@@ -39,7 +39,13 @@ header {
     display: inline-block;
 }
 
-.language_button {
+.language_logout {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.language_button, .logout_button {
     background-color: rgb(25, 182, 221);
     border: 1px solid #000;
     color: #000;

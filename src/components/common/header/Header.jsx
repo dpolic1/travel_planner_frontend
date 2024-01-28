@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import "./Header.css"
 import {useAuth} from "../auth-context/AuthContext.js";
 import {useLocalization} from "../../../context/LocalizationContext";
+import { ArrowLeftFromLine } from "lucide-react";
+
+
 export default function Header() {
   const { isAuthenticated } = useAuth();
   const { isAdmin } = useAuth();
@@ -11,6 +14,29 @@ export default function Header() {
 
   const changeLanguage = () => {
     setLanguage(language === "en" ? "hr" : "en");
+  };
+
+  const handleLogout = async () => {
+    try {
+      // Handle logout
+      const response = await fetch('http://localhost:8081/auth/logout', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`, 
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        localStorage.removeItem('jwtToken');
+        window.location.reload();
+      } else {
+        // Handle other cases, such as non-200 status codes
+        console.error('Logout failed:', response.status, response.statusText);
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
   };
 
   return (
@@ -54,13 +80,18 @@ export default function Header() {
             </>
           )}
         </ul>
-        <div className="language">
+        <div className="language_logout">
           <button
             className="language_button"
             onClick={() => changeLanguage()}
           >
             {t("language")}
           </button>
+          {isAuthenticated && (
+            <button className="logout_button" onClick={() => handleLogout()}>
+            <ArrowLeftFromLine size={24} />
+          </button>
+          )}
         </div>
       </nav>
     </header>
